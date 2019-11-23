@@ -97,9 +97,12 @@ csmBool CubismMotionQueueManager::DoUpdateMotion(CubismModel* model, csmFloat32 
             , userTimeSeconds - motionQueueEntry->GetStartTime()
         );
 
-        for (csmUint32 i = 0; i < firedList.GetSize(); ++i)
+        if (_eventCallback)
         {
-            _eventCallback(this, *(firedList[i]), _eventCustomData);
+            for (csmUint32 i = 0; i < firedList.GetSize(); ++i)
+            {
+                _eventCallback(this, *(firedList[i]), _eventCustomData);
+            }
         }
 
         motionQueueEntry->SetLastCheckEventTime(userTimeSeconds);
